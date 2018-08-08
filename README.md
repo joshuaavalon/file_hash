@@ -37,26 +37,20 @@ optional arguments:
   -a <algorithm>, --algorithm <algorithm>
                         Algorithm to calculate hash. (Default: md5)
   -d, --dry-run         Enable dry run to check what file will be generated.
-  -r, --recursive       Go through directories recursively. Use carefully with
-                        -s
+  -r, --recursive       Go through directories recursively. Use carefully with -s
   -s, --symlink         Follow symlink. Use carefully with -r
   -p <path>, --report <path>
                         Generate a HTML report.
   -P [<prefix> [<prefix> ...]], --ignore-prefix [<prefix> [<prefix> ...]]
-                        Ignore files and directories that start with those
-                        prefix. (Default: ["."])
+                        Ignore files and directories that start with those prefix. (Default: ["."])
   -S [<suffix> [<suffix> ...]], --ignore-suffix [<suffix> [<suffix> ...]]
-                        Ignore files and directories that end with those
-                        suffix. (Default: all hashing algorithm)
+                        Ignore files and directories that end with those suffix. (Default: all hashing algorithm)
   -R <regex>, --regex <regex>
-                        Only hash the files that match the regular expression.
-                        (Default: None)
+                        Only hash the files that match the regular expression. (Default: None)
   -K <size>, --min-size <size>
-                        Minimum file size to be hashed. Default unit is Byte.
-                        Support KB, GB, TB, PB. e.g. 1KB (Default: None)
+                        Minimum file size to be hashed. Default unit is Byte. Support KB, GB, TB, PB. e.g. 1KB (Default: None)
   -J <size>, --max-size <size>
-                        Maximum file size to be hashed. Default unit is Byte.
-                        Support KB, GB, TB, PB. e.g. 1KB (Default: None)
+                        Maximum file size to be hashed. Default unit is Byte. Support KB, GB, TB, PB. e.g. 1KB (Default: None)
 ```
 
 Note than `algorithm` and `dry-run` does not work on `validate`.
