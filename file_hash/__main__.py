@@ -33,7 +33,7 @@ def main():
 
 
 def create_parser() -> ArgumentParser:
-    parser = ArgumentParser(prog="hasher",
+    parser = ArgumentParser(prog="file_hash",
                             description="Simple hashing script for files.")
     parser.add_argument("-a", "--algorithm",
                         metavar="<algorithm>",
@@ -62,7 +62,8 @@ def create_parser() -> ArgumentParser:
                         metavar="<suffix>",
                         type=str,
                         nargs="*",
-                        help="Ignore files and directories that end with those suffix. (Default: all hashing algorithm)")
+                        help="Ignore files and directories that end with those suffix. "
+                             "(Default: all hashing algorithm)")
     parser.add_argument("-R", "--regex",
                         metavar="<regex>",
                         type=str,
