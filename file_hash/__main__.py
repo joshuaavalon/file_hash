@@ -42,47 +42,49 @@ def create_parser() -> ArgumentParser:
                         help="Algorithm to calculate hash. (Default: md5)")
     parser.add_argument("-d", "--dry-run",
                         action="store_true",
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Enable dry run to check what file will be generated.")
     parser.add_argument("-r", "--recursive",
                         action="store_true",
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Go through directories recursively. Use carefully with -s")
     parser.add_argument("-s", "--symlink",
                         action="store_true",
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Follow symlink.  Use carefully with -r")
     parser.add_argument("-p", "--report",
                         metavar="<path>",
                         type=not_exist_path,
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Generate a HTML report.")
     parser.add_argument("-P", "--ignore-prefix",
                         metavar="<prefix>",
                         type=str,
                         nargs="*",
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Ignore files and directories that start with those prefix. (Default: [\".\"])")
     parser.add_argument("-S", "--ignore-suffix",
-                        metavar="<prefix>",
+                        metavar="<suffix>",
                         type=str,
                         nargs="*",
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Ignore files and directories that end with those suffix. (Default: all hashing algorithm)")
     parser.add_argument("-R", "--regex",
                         metavar="<regex>",
                         type=str,
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Only hash the files that match the regular expression. (Default: None)")
     parser.add_argument("-K", "--min-size",
                         metavar="<size>",
                         type=file_size,
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Minimum file size to be hashed. Default unit is Byte. "
+                             "Support KB, GB, TB, PB. e.g. 1KB (Default: None)")
     parser.add_argument("-J", "--max-size",
                         metavar="<size>",
                         type=file_size,
-                        help="Algorithm to calculate hash. (Default: md5)")
+                        help="Maximum file size to be hashed. Default unit is Byte. "
+                             "Support KB, GB, TB, PB. e.g. 1KB (Default: None)")
     parser.add_argument("command",
                         metavar="<command>",
                         type=valid_command,
-                        help="command")
+                        help="hash or validate")
     parser.add_argument("path",
                         metavar="<path>",
                         type=exist_path,
-                        help="path")
+                        help="Starting path")
     return parser
 
 
