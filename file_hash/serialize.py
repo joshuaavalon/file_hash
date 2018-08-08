@@ -3,7 +3,7 @@ from logging import getLogger
 from pathlib import Path
 from typing import List
 
-from hasher.hash import Hash
+from file_hash.hash import Hash
 
 __all__ = ["HashFileHandler"]
 

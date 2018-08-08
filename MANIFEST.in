@@ -1,0 +1,2 @@
+include requirements.txt
+recursive-include file_hasher/templates *

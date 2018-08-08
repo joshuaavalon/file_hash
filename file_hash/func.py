@@ -1,13 +1,14 @@
 from logging import getLogger
-from multiprocessing import JoinableQueue, Queue
+from multiprocessing import JoinableQueue, Manager, Queue
 from os import cpu_count
 from pathlib import Path
 from queue import Empty, Queue
 from typing import Optional, Union
 
-from hasher.algorithm import Algorithm
-from hasher.filter import Filter, HashFilter
-from hasher.worker import HashValidationWorker, HashingWorker, MissingFileWorker
+from file_hash.algorithm import Algorithm
+from file_hash.filter import Filter, HashFilter
+from file_hash.report import Report
+from file_hash.worker import HashValidationWorker, HashingWorker, MissingFileWorker
 
 NUMBER_OF_CPU = cpu_count()
 if NUMBER_OF_CPU is not None and NUMBER_OF_CPU > 0:
@@ -26,12 +27,17 @@ def generate_hash(path: Path,
                   algorithm: Algorithm,
                   dry_run: bool,
                   recursive: bool,
+                  create_report: bool,
                   worker_count: int = WORKER_COUNT,
-                  queue_size: Optional[int] = DEFAULT_QUEUE_SIZE):
-    paths = JoinableQueue(queue_size)
-    for _ in range(0, worker_count):
-        HashingWorker(paths, algorithm, dry_run).start()
-    find_paths(path, paths, path_filter, recursive, worker_count)
+                  queue_size: Optional[int] = DEFAULT_QUEUE_SIZE
+                  ) -> Optional[str]:
+    with Manager() as manager:
+        paths = JoinableQueue(queue_size)
+        report = Report(manager.list()) if create_report else None
+        for _ in range(0, worker_count):
+            HashingWorker(paths, algorithm, dry_run, report).start()
+        find_paths(path, paths, path_filter, recursive, worker_count)
+        return report.generate() if report is not None else None
 
 
 def find_paths(path: Path,
@@ -67,15 +73,20 @@ def find_paths(path: Path,
 def validate_hash(path: Path,
                   path_filter: Filter,
                   recursive: bool,
+                  create_report: bool,
                   worker_count: int = WORKER_COUNT,
-                  queue_size: Optional[int] = DEFAULT_QUEUE_SIZE):
-    paths = JoinableQueue(queue_size)
-    for _ in range(0, worker_count):
-        HashValidationWorker(paths).start()
-    find_paths(path, paths, path_filter, recursive, worker_count)
+                  queue_size: Optional[int] = DEFAULT_QUEUE_SIZE
+                  ) -> Optional[str]:
+    with Manager() as manager:
+        paths = JoinableQueue(queue_size)
+        report = Report(manager.list()) if create_report else None
+        for _ in range(0, worker_count):
+            HashValidationWorker(paths, report).start()
+        find_paths(path, paths, path_filter, recursive, worker_count)
 
-    hash_paths = JoinableQueue(queue_size)
-    hash_filter = HashFilter(symlink=path_filter.symlink)
-    for _ in range(0, worker_count):
-        MissingFileWorker(hash_paths).start()
-    find_paths(path, hash_paths, hash_filter, recursive, worker_count)
+        hash_paths = JoinableQueue(queue_size)
+        hash_filter = HashFilter(symlink=path_filter.symlink)
+        for _ in range(0, worker_count):
+            MissingFileWorker(hash_paths, report).start()
+        find_paths(path, hash_paths, hash_filter, recursive, worker_count)
+        return report.generate() if report is not None else None

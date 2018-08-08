@@ -2,9 +2,9 @@ from argparse import ArgumentParser, ArgumentTypeError
 from hashlib import algorithms_available
 from pathlib import Path
 
-from hasher.algorithm import Algorithm
-from hasher.filter import Filter
-from hasher.func import generate_hash, validate_hash
+from file_hash.algorithm import Algorithm
+from file_hash.filter import Filter
+from file_hash.func import generate_hash, validate_hash
 
 COMMANDS = ["hash", "validate"]
 
@@ -12,16 +12,24 @@ COMMANDS = ["hash", "validate"]
 def main():
     parser = create_parser()
     args = parser.parse_args()
+    create_report = args.report is not None
+    report = None
     if args.command == "hash":
-        generate_hash(args.path,
-                      path_filter=create_filter(args),
-                      algorithm=Algorithm.new(args.algorithm),
-                      dry_run=args.dry_run,
-                      recursive=args.recursive)
+        report = generate_hash(args.path,
+                               path_filter=create_filter(args),
+                               algorithm=Algorithm.new(args.algorithm),
+                               dry_run=args.dry_run,
+                               recursive=args.recursive,
+                               create_report=create_report)
     elif args.command == "validate":
-        validate_hash(args.path,
-                      path_filter=create_filter(args),
-                      recursive=args.recursive)
+        report = validate_hash(args.path,
+                               path_filter=create_filter(args),
+                               recursive=args.recursive,
+                               create_report=create_report)
+
+    if create_report and report is not None:
+        with open(args.report, "w", encoding="utf-8") as file:
+            file.write(report)
 
 
 def create_parser() -> ArgumentParser:

@@ -1,7 +1,7 @@
 import hashlib
 from pathlib import Path
 
-from hasher.hash import Hash
+from file_hash.hash import Hash
 
 __all__ = ["Algorithm"]
 

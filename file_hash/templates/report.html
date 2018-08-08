@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include "css.html" %}
+    <style>
+        .logo img {
+            max-height: 100%;
+        }
+
+        header.sticky {
+            display: flex;
+        }
+
+        table {
+            max-height: none !important;
+            table-layout: auto;
+        }
+
+        table td {
+            align-items: center;
+            display: flex;
+            overflow: visible !important;
+            overflow-wrap: break-word;
+        }
+
+        table tr td.path, table tr th.path {
+            flex: 4;
+        }
+
+        table tr td.error,
+        table tr th.error,
+        table tr td.hash,
+        table tr th.hash {
+            flex: 2;
+        }
+    </style>
+</head>
+
+<body>
+<header class="sticky">
+    <div><a href="#" class="logo button">{% include "logo.html" %}</a></div>
+    <div><a href="#success" class="button">Success</a></div>
+    <div><a href="#failure" class="button">Failure</a></div>
+</header>
+<h1>File Hash Report</h1>
+<table id="success">
+    <caption>Success</caption>
+    <thead>
+    <tr>
+        <th>Algorithm</th>
+        <th class="hash">Hash</th>
+        <th class="path">Path</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in success %}
+        <tr>
+            <td data-label="Algorithm">
+                <div>{{ record.hash.algorithm }}</div>
+            </td>
+            <td data-label="Hash" class="hash">
+                <div>{{ record.hash.hex_digest }}</div>
+            </td>
+            <td data-label="Path" class="path">
+                <div>{{ record.path.absolute() }}</div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<hr/>
+<table id="failure">
+    <caption>Failure</caption>
+    <thead>
+    <tr>
+        <th class="error">Error</th>
+        <th>Algorithm</th>
+        <th class="hash">Hash</th>
+        <th class="path">Path</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in error %}
+        <tr>
+            <td data-label="Error" class="error">
+                <div>{{ record.error }}</div>
+            </td>
+            {% if record.hash is not none %}
+                <td data-label="Algorithm">
+                    <div>{{ record.hash.algorithm }}</div>
+                </td>
+                <td data-label="Hash" class="hash">
+                    <div>{{ record.hash.hex_digest }}</div>
+                </td>
+            {% else %}
+                <td data-label="Algorithm">
+                    <div>None</div>
+                </td>
+                <td data-label="Hash" class="hash">
+                    <div>None</div>
+                </td>
+            {% endif %}
+            <td data-label="Path" class="path">
+                <div>{{ record.path.absolute() }}</div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
