@@ -4,6 +4,13 @@
 
 file-hash is a simple command line hashing utility written in Python.
 
+## Requirements
+
+* Python 3.7+ 
+* Jinja2 2.10+
+
+You should able to use this with Python < 3.7 if you have [dataclass back port](https://github.com/ericvsmith/dataclasses).
+
 ## Usage
 
 ### Create a hash
@@ -48,9 +55,11 @@ optional arguments:
   -R <regex>, --regex <regex>
                         Only hash the files that match the regular expression. (Default: None)
   -K <size>, --min-size <size>
-                        Minimum file size to be hashed. Default unit is Byte. Support KB, GB, TB, PB. e.g. 1KB (Default: None)
+                        Minimum file size to be hashed. Default unit is Byte.
+                        Support KB, GB, TB, PB. e.g. 1KB (Default: None)
   -J <size>, --max-size <size>
-                        Maximum file size to be hashed. Default unit is Byte. Support KB, GB, TB, PB. e.g. 1KB (Default: None)
+                        Maximum file size to be hashed. Default unit is Byte.
+                        Support KB, GB, TB, PB. e.g. 1KB (Default: None)
 ```
 
 Note than `algorithm` and `dry-run` does not work on `validate`.
