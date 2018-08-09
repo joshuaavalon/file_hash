@@ -1,4 +1,4 @@
-![file-hash](image/icon.png?raw=true "file-hash")
+![file-hash](https://raw.githubusercontent.com/joshuaavalon/file_hash/master/image/icon.png "file-hash")
 
 # file-hash
 

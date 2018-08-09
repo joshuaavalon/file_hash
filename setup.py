@@ -4,10 +4,10 @@ with open("README.md", "r") as readme:
     long_description = readme.read()
 
 setup(name="file_hash",
-      version="1.0.0",
+      version="1.0.1",
       author="Joshua Avalon",
       url="https://git.joshuaavalon.io/joshuaavalon/file_hash",
-      description="Schema library for Plex",
+      description="Simple hashing script for files.",
       long_description=long_description,
       long_description_content_type="text/markdown",
       python_requires=">=3.7",
