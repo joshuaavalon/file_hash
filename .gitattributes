@@ -6,6 +6,7 @@
 *.pyw        text
 *.pyx        text
 *.md         text
+*.txt        text
 
 *.db        binary
 *.p         binary

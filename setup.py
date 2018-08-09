@@ -23,5 +23,10 @@ setup(name="file_hash",
       include_package_data=True,
       entry_points={
           "console_scripts": ["file_hash = file_hash.__main__:main"]
+      },
+      project_urls={
+          "Bug Tracker": "https://github.com/joshuaavalon/file_hash",
+          "Documentation": "https://git.joshuaavalon.io/joshuaavalon/file_hash/blob/master/README.md",
+          "Source Code": "https://git.joshuaavalon.io/joshuaavalon/file_hash",
       }
       )

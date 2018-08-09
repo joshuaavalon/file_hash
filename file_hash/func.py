@@ -1,5 +1,5 @@
 from logging import getLogger
-from multiprocessing import JoinableQueue, Manager, Queue
+from multiprocessing import JoinableQueue, Manager
 from os import cpu_count
 from pathlib import Path
 from queue import Empty, Queue
@@ -8,7 +8,8 @@ from typing import Optional, Union
 from file_hash.algorithm import Algorithm
 from file_hash.filter import Filter, HashFilter
 from file_hash.report import Report
-from file_hash.worker import HashValidationWorker, HashingWorker, MissingFileWorker
+from file_hash.worker import HashValidationWorker, HashingWorker, \
+    MissingFileWorker
 
 NUMBER_OF_CPU = cpu_count()
 if NUMBER_OF_CPU is not None and NUMBER_OF_CPU > 0:

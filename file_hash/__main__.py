@@ -42,10 +42,10 @@ def create_parser() -> ArgumentParser:
                         help="Algorithm to calculate hash. (Default: md5)")
     parser.add_argument("-d", "--dry-run",
                         action="store_true",
-                        help="Enable dry run to check what file will be generated.")
+                        help="Enable dry run to check what file will be generated.")  # noqa: E501
     parser.add_argument("-r", "--recursive",
                         action="store_true",
-                        help="Go through directories recursively. Use carefully with -s")
+                        help="Go through directories recursively. Use carefully with -s")  # noqa: E501
     parser.add_argument("-s", "--symlink",
                         action="store_true",
                         help="Follow symlink.  Use carefully with -r")
@@ -57,27 +57,27 @@ def create_parser() -> ArgumentParser:
                         metavar="<prefix>",
                         type=str,
                         nargs="*",
-                        help="Ignore files and directories that start with those prefix. (Default: [\".\"])")
+                        help="Ignore files and directories that start with those prefix. (Default: [\".\"])")  # noqa: E501
     parser.add_argument("-S", "--ignore-suffix",
                         metavar="<suffix>",
                         type=str,
                         nargs="*",
-                        help="Ignore files and directories that end with those suffix. "
+                        help="Ignore files and directories that end with those suffix. "  # noqa: E501
                              "(Default: all hashing algorithm)")
     parser.add_argument("-R", "--regex",
                         metavar="<regex>",
                         type=str,
-                        help="Only hash the files that match the regular expression. (Default: None)")
+                        help="Only hash the files that match the regular expression. (Default: None)")  # noqa: E501
     parser.add_argument("-K", "--min-size",
                         metavar="<size>",
                         type=file_size,
-                        help="Minimum file size to be hashed. Default unit is Byte. "
-                             "Support KB, GB, TB, PB. e.g. 1KB (Default: None)")
+                        help="Minimum file size to be hashed. Default unit is Byte. "  # noqa: E501
+                             "Support KB, GB, TB, PB. e.g. 1KB (Default: None)")  # noqa: E501
     parser.add_argument("-J", "--max-size",
                         metavar="<size>",
                         type=file_size,
-                        help="Maximum file size to be hashed. Default unit is Byte. "
-                             "Support KB, GB, TB, PB. e.g. 1KB (Default: None)")
+                        help="Maximum file size to be hashed. Default unit is Byte. "  # noqa: E501
+                             "Support KB, GB, TB, PB. e.g. 1KB (Default: None)")  # noqa: E501
     parser.add_argument("command",
                         metavar="<command>",
                         type=valid_command,
